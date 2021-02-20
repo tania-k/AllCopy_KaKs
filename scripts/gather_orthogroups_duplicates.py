@@ -11,11 +11,11 @@ from Bio import SeqIO
 
 parser = argparse.ArgumentParser(description='Get Duplicated Ortholog sets from OrthoFinder results.')
 parser.add_argument('--input_folder','--input',
-                    default = 'input/OrthoFinder/Results_Dec23',
+                    default = 'input/OrthoFinder/Results_Jan16',
                     help='OrthoFinder Results folder')
 
 parser.add_argument('--db','--cds_db',
-                    default = 'Dothid.cds-transcripts.fa',
+                    default = 'Dothid.cds.fa',
                     help='CDS sequence database in fasta format')
 
 parser.add_argument('--out','--cds_out',

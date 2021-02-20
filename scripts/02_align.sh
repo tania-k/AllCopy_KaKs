@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH  --time 1-0:00:00 --ntasks 8 --nodes 1 --mem 24G --out logs/align.%a.log
+#SBATCH  --time 1-0:00:00 --ntasks 8 --nodes 1 --mem 24G --out logs/align.v3.%a.log
 
 module load muscle
 
@@ -9,10 +9,10 @@ if [ $SLURM_CPUS_ON_NODE ] ; then
 fi
 
 
-INFILE=Orthogroups_nofa_2.tsv
+INFILE=new.txt
 N=${SLURM_ARRAY_TASK_ID}
-INDIR=results
-OUT=CDS_ALIGNED
+INDIR=results4
+OUT=CDS_ALIGNED4
 
 if [ ! $N ]; then
     N=$1
@@ -25,7 +25,7 @@ fi
 IFS=,
 sed -n ${N}p $INFILE | while read NAME
 do
-    FILE=$INDIR/$NAME.CDS.fa
+    FILE=$INDIR/$NAME.CDS.fa.new
     echo $FILE
     if [ ! -f $OUT/$NAME.aligned.CDS.fa ]; then
        muscle -quiet -in $FILE -out $OUT/$NAME.aligned.CDS.fa 

@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH  --time 1-0:00:00 --ntasks 8 --nodes 1 --mem 24G --out logs/fasta.%a.log
+#SBATCH  --time 1-0:00:00 --ntasks 8 --nodes 1 --mem 24G --out logs/fasta.v4.%a.log
 
 module load ncbi-blast/2.2.30+
 
@@ -9,10 +9,10 @@ if [ $SLURM_CPUS_ON_NODE ] ; then
 fi
 
 
-INFILE=Orthogroups_nofa.tsv
+INFILE=new.txt
 N=${SLURM_ARRAY_TASK_ID}
-INDIR=seqIDs
-OUT=results
+INDIR=seqIDs4
+OUT=results4
 
 if [ ! $N ]; then
     N=$1
@@ -25,7 +25,7 @@ fi
 IFS=,
 sed -n ${N}p $INFILE | while read NAME
 do
-    FILE=$INDIR/$NAME.fa.seqID.clean.seqID.fa.clean.cleaned
+    FILE=$INDIR/$NAME.fa.seqID.cleaned.seqID
     echo $FILE
     if [ ! -f $OUT/$NAME.CDS.fa ]; then
         blastdbcmd -entry_batch "$FILE" -db Dothid >> $OUT/$NAME.CDS.fa 
